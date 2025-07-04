@@ -1,7 +1,7 @@
+package Models;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Cart {
     private List<CartItem> items;
@@ -20,7 +20,7 @@ public class Cart {
         }
 
         if (product.isExpired()) {
-            throw new IllegalArgumentException("Product is expired");
+            throw new IllegalArgumentException("Models.Product is expired");
         }
 
         for (CartItem item : items) {

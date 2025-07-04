@@ -1,4 +1,6 @@
-class CartItem {
+package Models;
+
+public class CartItem {
     private Product product;
     private int quantity;
 
@@ -8,6 +10,8 @@ class CartItem {
     }
 
     public Product getProduct() { return product; }
+
     public int getQuantity() { return quantity; }
+
     public double getTotalPrice() { return product.getPrice() * quantity; }
 }

@@ -1,6 +1,8 @@
-import java.util.HashMap;
+package Services;
+
+import Interfaces.ShippingServiceInterface;
+
 import java.util.List;
-import java.util.Map;
 
 public class ShippingService{
     private final double SHIPPING_PER_KG = 2.0;

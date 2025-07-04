@@ -1,19 +1,28 @@
+package Services;
+
+import Interfaces.ShippingServiceInterface;
+import Models.CartItem;
+import Models.Customer;
+import Models.Product;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class PaymentService {
+public class OrderingService {
     private ShippingService shippingService;
 
-    public PaymentService() {
+    public OrderingService() {
         this.shippingService = new ShippingService();
     }
 
-    public void checkOut(Customer customer, Cart cart) {
-        double cartTotal = cart.getTotal();
+    public void checkOut(Customer customer) {
+        double cartTotal = customer.getCart().getTotal();
 
+        if(customer.getCart().isEmpty()){
+            throw new IllegalArgumentException("Models.Cart is empty");
+        }
         List<ShippingServiceInterface> shippableItems = new ArrayList<>();
-        for (CartItem item : cart.getItems()) {
+        for (CartItem item : customer.getCart().getItems()) {
             Product product = item.getProduct();
             if (product.requiresShipping()) {
                 for (int i = 0; i < item.getQuantity(); i++) {
@@ -39,12 +48,12 @@ public class PaymentService {
 
         customer.reduceBalance(totalAmount);
 
-        for (CartItem item : cart.getItems()) {
+        for (CartItem item : customer.getCart().getItems()) {
             item.getProduct().reduceQuantity(item.getQuantity());
         }
 
         System.out.println("** Checkout receipt **");
-        for (CartItem item : cart.getItems()) {
+        for (CartItem item : customer.getCart().getItems()) {
             System.out.printf("%dx %-12s %.0f%n",
                     item.getQuantity(),
                     item.getProduct().getName(),
@@ -54,8 +63,8 @@ public class PaymentService {
         System.out.printf("Subtotal         %.0f%n", cartTotal);
         System.out.printf("Shipping         %.0f%n", shippingTotal);
         System.out.printf("Amount           %.0f%n", totalAmount);
-        System.out.printf("Customer balance after payment: $%.2f%n", customer.getBalance());
+        System.out.printf("Models.Customer balance after payment: $%.2f%n", customer.getBalance());
 
-        cart.clear();
+        customer.getCart().clear();
     }
 }

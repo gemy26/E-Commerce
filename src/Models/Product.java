@@ -1,5 +1,9 @@
+package Models;
+
+import Models.Strategies.ExpirationStrategy;
+import Models.Strategies.ShippingStrategy;
+
 import java.time.LocalDate;
-import java.util.Optional;
 
 public class Product {
     private final String name;
@@ -24,6 +28,7 @@ public class Product {
     public double getPrice() {
         return price;
     }
+
     public int getQuantity() {
         return quantity;
     }
@@ -51,6 +56,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product [name=" + name + ", price=" + price + ", quantity=" + quantity + ", expirationStrategy=" + expirationStrategy.getExpiryDate() + ", shippingStrategy=" + shippingStrategy.getWeight() + "]";
+        return "Models.Product [name=" + name + ", price=" + price + ", quantity=" + quantity + ", expirationStrategy=" + expirationStrategy.getExpiryDate() + ", shippingStrategy=" + shippingStrategy.getWeight() + "]";
     }
 }
